@@ -461,17 +461,6 @@ async function aggregateFromAggregated(db, startTime, endTime, targetBucketSecon
   return { aggregated, deleted, rawCount: sourceCount };
 }
 
-function getBucketSizesForHours(hours) {
-  const sizes = [];
-  if (hours > 0.5) sizes.push(120);
-  if (hours > 1) sizes.push(240);
-  if (hours > 3) sizes.push(480);
-  if (hours > 6) sizes.push(960);
-  if (hours > 24) sizes.push(1920);
-  if (hours > 48) sizes.push(3600);
-  return sizes;
-}
-
 function mapColumnsToAggregated(columns) {
   return columns.split(',').map(col => {
     const trimmed = col.trim();
