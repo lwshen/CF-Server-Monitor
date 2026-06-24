@@ -3,12 +3,12 @@
     <TerminalHeader :title="server.name || 'Loading...'" />
     
     <div class="nav-bar">
-      <a href="/" class="back-btn">
+      <router-link to="/" class="back-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
         {{ trans.back }}
-      </a>
+      </router-link>
       <div class="time-selector" v-show="historyLoaded" id="time-selector">
         <button 
           v-for="option in timeOptions" 
@@ -276,7 +276,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import TerminalHeader from '../components/TerminalHeader.vue'
 import Footer from '../components/Footer.vue'
 import { fetchServerDetail, fetchAllHistory, formatBytes, isAdminLoggedIn, createLiveSocket, getFlagRegionCode } from '../utils/api.js'
@@ -287,6 +287,7 @@ import { TIME, CHART, GAP_BREAK } from '../utils/constants'
 import useTheme from '../composables/useTheme'
 
 const route = useRoute()
+const router = useRouter()
 
 let serverId = route.params.id
 if (!serverId) {
@@ -295,7 +296,7 @@ if (!serverId) {
 }
 
 if (!serverId) {
-  window.location.href = '/'
+  router.push('/')
 }
 
 const server = ref({})
@@ -1128,7 +1129,7 @@ const setTimeRange = (hours) => {
 
 const goToLogin = () => {
   showLoginModal.value = false
-  window.location.href = '/admin'
+  router.push('/admin')
 }
 
 let statusTimer = null

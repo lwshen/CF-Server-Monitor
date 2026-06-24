@@ -1,5 +1,5 @@
 <template>
-  <a :href="'/server/' + server.id" class="server-card" :data-region="regionCode">
+  <router-link :to="'/server/' + server.id" class="server-card" :data-region="regionCode">
     <div class="server-card-header">
       <div class="server-identity">
         <div class="status-indicator" :style="{ background: statusColor, boxShadow: '0 0 8px ' + statusColor }"></div>
@@ -81,7 +81,7 @@
         <span class="ping-value" :style="{ color: getPingColor(server.ping_bd) }">{{ !isPingValid(server.ping_bd) ? trans.timeout : server.ping_bd + 'ms' }}</span>
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script setup>

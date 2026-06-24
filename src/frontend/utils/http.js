@@ -39,7 +39,7 @@ const handleResponse = async (res, options = {}) => {
   if (res.status === 401) {
     localStorage.removeItem('jwt_token')
     if (autoRedirect) {
-      window.location.href = '/admin'
+      window.location.hash = '#/admin'
     }
     return { error: DEFAULT_ERROR_MESSAGES[401], status: 401 }
   }

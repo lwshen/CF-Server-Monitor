@@ -68,7 +68,7 @@
         <div class="loading-text">$ {{ trans.loading }}</div>
       </div>
       <div v-else-if="groupedServers.length === 0" class="empty-state">
-        [!] {{ trans.noServer }}，请在 <a href="/admin" class="admin-link-color">{{ trans.backToAdmin }}</a> 中添加
+        [!] {{ trans.noServer }}，请在 <router-link to="/admin" class="admin-link-color">{{ trans.backToAdmin }}</router-link> 中添加
       </div>
       <div v-else>
         <div v-for="group in groupedServers" :key="group.name" class="group-section">
@@ -188,6 +188,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import TerminalHeader from '../components/TerminalHeader.vue'
 import ServerCard from '../components/ServerCard.vue'
 import Footer from '../components/Footer.vue'
@@ -213,6 +214,7 @@ const mapInitialized = ref(false)
 const liveConnected = ref(false)
 const isLoading = ref(true)
 const now = ref(Date.now())
+const router = useRouter()
 
 const trans = computed(() => translations[currentLang.value] || translations.en)
 
@@ -571,7 +573,7 @@ const drawMarkers = () => {
 }
 
 const goToServer = (id) => {
-  window.location.href = `/server/${id}`
+  router.push(`/server/${id}`)
 }
 
 onMounted(() => {
